@@ -7,6 +7,7 @@ const App = () => {
         <div className='container'>
             <div className="row">
                 <div className="col"><hooks.useStateHook/></div>
+                <div className="col"><hooks.useCustomHook/></div>
             </div>
         </div>
         </>

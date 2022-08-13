@@ -6,9 +6,9 @@ export const useStateHook = () => {
 
     return(
         <>
-        <hr />
+        <h2>useState</h2>
         <code>{JSON.stringify({c1,c2,c3})}</code>
-        <button type="button" className="btn btn-primary" onClick={() => { setCounter({c1:c1+1,c2,c3}) }}>+1</button>
+        <button className="btn btn-primary" onClick={() => { setCounter({c1:c1+1,c2,c3}) }}>+1</button>
         </>
     )
 }
