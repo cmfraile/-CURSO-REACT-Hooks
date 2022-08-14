@@ -14,12 +14,12 @@ const useFetch = (url:string) => {
 
 export const multipleCustomHooks = () => {
 
-    const { data , isLoading , error } = useFetch('https://www.breakingbadapi.com/api/quotes/1')
+    const { data , isLoading , error } = useFetch('https://www.breakingbadapi.com/api/quotes')
 
     return(
         <>
-        <h1>{(isLoading) ? 'Cargando' : 'Breaking Bad Quotes'}</h1>
-        <p>{(data) && JSON.stringify(data)}</p>
+        <h1 style={{color:(error) ? 'red' : 'black'}} >{(error) ? 'ERROR!' : (isLoading) ? 'Cargando' : 'Breaking Bad Quotes'}</h1>
+        <p>{(data) && JSON.stringify(data[0])}</p>
         </>
     )
 }
