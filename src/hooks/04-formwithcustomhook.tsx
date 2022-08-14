@@ -25,19 +25,20 @@ const useForma = (initialForm:any = {}) => {
     
     const onInputChange = ({target}:any) => {
         const { name , value } = target;
-        console.log(name)
         setFormState({
             ...formState,
             [ name ]:value
         })
     }
+
+    const onResetForm = () => { setFormState(initialForm) };
     
-    return({formState,onInputChange});
+    return({formState,onInputChange,onResetForm});
 }
 
 export const Formwithcustomhook = () => {
 
-    const {formState,onInputChange} = useForma({username:'',email:'',password:''})
+    const {formState,onInputChange,onResetForm} = useForma({username:'',email:'',password:''})
 
     /*
     useEffect(() => {console.log('username!')},[username]);
@@ -60,6 +61,8 @@ export const Formwithcustomhook = () => {
                     />
                 )
             })}
+
+            <button className="btn btn-primary" onClick={onResetForm}>RESET</button>
 
             {(formState.username === 'Tortilla') && <Message/>}
 
