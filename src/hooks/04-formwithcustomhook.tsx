@@ -13,18 +13,31 @@ const Message = () => {
     return(<><h3>Usuario existe{JSON.stringify(xy)}</h3></>);
 }
 
-export const Formwithcustomhook = () => {
+const useForma = (initialForm:any = {}) => {
 
-    const [formState,setFormState] = useState({username:'',email:'',password:''});
-    const formgenerator:any = {username:formState.username,email:formState.email,password:formState.password};
+    /*
+        const [formState,setFormState] = useState({username:'',email:'',password:''});
+        const formgenerator:any = {username:formState.username,email:formState.email,password:formState.password};
+        const formgenerator:any = {username:formState.username,email:formState.email,password:formState.password};
+    */
+
+    const [formState,setFormState] = useState(initialForm);
     
     const onInputChange = ({target}:any) => {
         const { name , value } = target;
+        console.log(name)
         setFormState({
-            ...formgenerator,
+            ...formState,
             [ name ]:value
         })
     }
+    
+    return({formState,onInputChange});
+}
+
+export const Formwithcustomhook = () => {
+
+    const {formState,onInputChange} = useForma({username:'',email:'',password:''})
 
     /*
     useEffect(() => {console.log('username!')},[username]);
@@ -34,7 +47,7 @@ export const Formwithcustomhook = () => {
     return (
         <>
             <h2>Form with custom hook</h2>
-            {Object.keys(formgenerator).map((x:string) => {
+            {Object.keys(formState).map((x:string) => {
                 return(
                     <input
                         key={x}
@@ -42,14 +55,13 @@ export const Formwithcustomhook = () => {
                         className="form-control iform"
                         placeholder={x}
                         name={x}
-                        value={formgenerator[x]}
+                        value={formState[x]}
                         onChange={onInputChange}
                     />
                 )
             })}
-            {
-            //(username === 'Tortilla') && <Message/>
-            }
+
+            {(formState.username === 'Tortilla') && <Message/>}
 
         </>
     )
