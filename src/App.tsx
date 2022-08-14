@@ -8,11 +8,13 @@ const App = () => {
             <div className="row">
                 <div className="col"><hooks.useStateHook/></div>
                 <div className="col"><hooks.useCustomHook/></div>
-                <div className="col"><hooks.useEffectHook/></div>
             </div>
             <div className="row">
+                <div className="col"><hooks.useEffectHook/></div>
                 <div className="col"><hooks.Formwithcustomhook/></div>
-                <div className="col"></div>
+            </div>
+            <div className="row">
+                <div className="col"><hooks.multipleCustomHooks/></div>
                 <div className="col"></div>
             </div>
         </div>
