@@ -16,9 +16,8 @@ export const useEffectHook = () => {
         })
     }
 
-    useEffect(() => {
-        console.log('uE CALLED!')
-    })
+    useEffect(() => {console.log('username!')},[username]);
+    useEffect(() => {console.log('email!')},[email]);
 
     return (
         <>
