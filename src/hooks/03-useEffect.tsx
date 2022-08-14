@@ -1,5 +1,21 @@
 import { useState , useEffect } from "react"
 
+const Message = () => {
+
+    useEffect(() => {
+        console.log("montado");
+        return () => {
+            console.log("DESmontado");
+        }
+    })
+
+    return(
+        <>
+            <h3>Usuario ya existe</h3>
+        </>
+    )
+}
+
 export const useEffectHook = () => {
 
     const [formState,setFormState] = useState({
@@ -16,8 +32,13 @@ export const useEffectHook = () => {
         })
     }
 
+    /*
     useEffect(() => {console.log('username!')},[username]);
     useEffect(() => {console.log('email!')},[email]);
+    */
+
+
+    
 
     return (
         <>
@@ -38,6 +59,9 @@ export const useEffectHook = () => {
                     value={email}
                     onChange={onInputChange}
             />
+
+            {(username === 'Tortilla') && <Message/>}
+
         </>
     )
 }
