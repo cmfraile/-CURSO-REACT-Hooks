@@ -8,6 +8,7 @@ const App = () => {
             <div className="row">
                 <div className="col"><hooks.useStateHook/></div>
                 <div className="col"><hooks.useCustomHook/></div>
+                <div className="col"><hooks.useEffectHook/></div>
             </div>
         </div>
         </>
