@@ -2,18 +2,15 @@ import { useState , useEffect } from "react"
 
 const Message = () => {
 
+    const [ xy , setXy ] = useState<{x:number,y:number}>({x:0,y:0});
+
     useEffect(() => {
-        console.log("montado");
-        return () => {
-            console.log("DESmontado");
-        }
+        const onMouseMove = ({x,y}:{x:number,y:number}) => {setXy({x,y})};
+        window.addEventListener('mousemove',onMouseMove);
+        return () => {window.removeEventListener('mousemove',onMouseMove)};
     })
 
-    return(
-        <>
-            <h3>Usuario ya existe</h3>
-        </>
-    )
+    return(<><h3>Usuario existe{JSON.stringify(xy)}</h3></>);
 }
 
 export const useEffectHook = () => {
