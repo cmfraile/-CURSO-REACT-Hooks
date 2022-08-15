@@ -24,6 +24,9 @@ const App = () => {
             <div className="row">
                 <div className="col"><hooks.callbackhook/></div>
             </div>
+            <div className="row">
+                <div className="col"><hooks.Padre/></div>
+            </div>
         </div>
         </>
     )

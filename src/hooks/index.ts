@@ -8,3 +8,4 @@ export * from './07-useLayoutEffect';
 export * from './08-memos';
 export * from './09-memohook';
 export * from './10-callbackhook';
+export * from './tareamemo/Padre';
