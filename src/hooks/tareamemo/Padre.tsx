@@ -9,6 +9,12 @@ export const Padre = () => {
     //const incrementar = ( num:number ) => {setValor( valor + num )};
     const incrementar = useCallback((value:number) => {setValor((c) => c+value)},[]);
 
+    const fabricar = () => {
+        let caso:any[] = [];
+        numeros.map(n => {caso.push(<Hijo key={n} numero={n} incrementar={ incrementar }/>)});
+        return caso;
+    };
+
     return (
         <div>
             <h1>Padre</h1>
@@ -16,7 +22,9 @@ export const Padre = () => {
 
             <hr />
 
-            {
+            {fabricar()}
+
+            {/*
                 numeros.map( n => (
                     <Hijo 
                         key={ n }
@@ -24,7 +32,7 @@ export const Padre = () => {
                         incrementar={ incrementar }
                     />
                 ))
-            }
+            */}
 
             {/* <Hijo /> */}
         </div>
