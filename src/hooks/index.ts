@@ -6,3 +6,4 @@ export * from './05-examples';
 export * from './06-useRef';
 export * from './07-useLayoutEffect';
 export * from './08-memos';
+export * from './09-memohook';

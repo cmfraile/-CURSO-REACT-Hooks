@@ -15,7 +15,7 @@ export const memorize = () => {
         <>
         <h1>Memorize <SmallHook value={counter}/></h1>
         <button className="btn btn-primary" onClick={() => {sc('+')}}>+1</button>
-        <button className="btn btn-primary" onClick={() => {setShow(!show)}} >Show/hide{ JSON.stringify(show)}</button>
+        <button className="btn btn-primary" onClick={() => {setShow(!show)}}>Show/hide : { JSON.stringify(show)}</button>
         </>
     )
 }

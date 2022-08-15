@@ -19,6 +19,7 @@ const App = () => {
             </div>
             <div className="row">
                 <div className="col"><hooks.memorize/></div>
+                <div className="col"><hooks.memohook/></div>
             </div>
         </div>
         </>
