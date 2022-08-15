@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const useCounter = (value:number = 10) => {
+export const useCounter = (value:number = 0) => {
     const [ counter , setCounter ] = useState<number>(value);
     const sc = (arg:string):void => {
         switch(arg){
