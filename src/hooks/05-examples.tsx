@@ -22,7 +22,7 @@ export const multipleCustomHooks = () => {
 
     const iref = useRef<HTMLParagraphElement>((<p/>).type);
     useLayoutEffect(() => {setHeight(iref.current.getBoundingClientRect().height)});
-    //useEffect(() => {setWidth(iref.current.getBoundingClientRect().width)},[swcb]);
+    //useEffect(() => {setHeight(iref.current.getBoundingClientRect().height)});
     
     
     return(

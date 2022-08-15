@@ -18,7 +18,7 @@ const App = () => {
                 <div className="col"><hooks.focusScreen/></div>
             </div>
             <div className="row">
-                
+                <div className="col"><hooks.memorize/></div>
             </div>
         </div>
         </>
