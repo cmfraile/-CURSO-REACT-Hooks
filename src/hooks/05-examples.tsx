@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useCounter } from "./02-customHooks";
+import { useLayoutEffectHook } from "./07-useLayoutEffect";
 
 const useFetch = (url:string) => {
     const [ state , setState ] = useState({data:null,isLoading:true,error:null})
@@ -17,11 +18,18 @@ export const multipleCustomHooks = () => {
 
     const { data , isLoading , error } = useFetch('https://www.breakingbadapi.com/api/quotes');
     const { counter , sc } = useCounter();
+    const { height , setHeight } = useLayoutEffectHook()
+
+    const iref = useRef<HTMLParagraphElement>((<p/>).type);
+    useLayoutEffect(() => {setHeight(iref.current.getBoundingClientRect().height)});
+    //useEffect(() => {setWidth(iref.current.getBoundingClientRect().width)},[swcb]);
+    
     
     return(
         <>
         <h1 style={{color:(error) ? 'red' : 'black'}} >{(error) ? 'ERROR!' : (isLoading) ? 'Cargando' : 'Breaking Bad Quotes'}</h1>
-        <p>{(data) && data[counter]['quote']}</p>
+        <p ref={iref}>{(data) && data[counter]['quote']}</p>
+        <p>Altura del quote : {height}</p>
         <button className="btn btn-primary" onClick={() => {sc('+')}}>+1</button>
         <button className="btn btn-primary" disabled={(counter == 0) ? true : false} onClick={() => {sc('-')}}>-1</button>
         <button className="btn btn-primary" disabled={(counter == 0) ? true : false} onClick={() => {sc('R')}}>RESET</button>

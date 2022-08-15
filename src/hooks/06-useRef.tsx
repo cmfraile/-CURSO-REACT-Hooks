@@ -16,6 +16,7 @@ export const focusScreen = () => {
             />
 
             <button
+            className="btn btn-primary"
             onClick={() => {inputRef.current.select()}}
             >
                 focus
