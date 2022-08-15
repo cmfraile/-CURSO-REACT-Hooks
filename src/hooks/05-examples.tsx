@@ -17,8 +17,7 @@ export const multipleCustomHooks = () => {
 
     const { data , isLoading , error } = useFetch('https://www.breakingbadapi.com/api/quotes');
     const { counter , sc } = useCounter();
-
-
+    
     return(
         <>
         <h1 style={{color:(error) ? 'red' : 'black'}} >{(error) ? 'ERROR!' : (isLoading) ? 'Cargando' : 'Breaking Bad Quotes'}</h1>

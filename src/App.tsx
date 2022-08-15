@@ -15,7 +15,7 @@ const App = () => {
             </div>
             <div className="row">
                 <div className="col"><hooks.multipleCustomHooks/></div>
-                <div className="col"></div>
+                <div className="col"><hooks.focusScreen/></div>
             </div>
         </div>
         </>
