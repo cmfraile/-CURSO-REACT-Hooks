@@ -1,6 +1,7 @@
 import * as hooks from '../src/hooks';
+import * as reducers from '../src/reducers'
 
-const App = () => {
+export const App = () => {
     return(
         <>
         <h1>HooksApp</h1>
@@ -32,4 +33,13 @@ const App = () => {
     )
 }
 
-export default App
+export const App2 = () => {
+    return(
+        <>
+        <h1>UseReducer</h1>
+            <div className="row">
+                <div className="col"><reducers.Introreducer/></div>
+            </div>
+        </>
+    )
+}
