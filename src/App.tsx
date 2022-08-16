@@ -37,9 +37,8 @@ export const App2 = () => {
     return(
         <>
         <h1>UseReducer</h1>
-            <div className="row">
-                <div className="col"><reducers.Introreducer/></div>
-            </div>
+            {/*<div className="row"><div className="col"><reducers.Introreducer/></div></div>*/}
+            <div className="row"><div className="col"><reducers.TodoApp/></div></div>
         </>
     )
 }
