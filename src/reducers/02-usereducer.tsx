@@ -1,47 +1,69 @@
-import { useReducer } from "react"
+import { useReducer, useState } from "react"
+import { random } from "underscore";
 import './todo.sass';
 
-interface initialState {id:number,todo:string,done:boolean} ; interface todobj {id:number,todo:string,done:boolean} ;
+interface todobj {id:number,todo:string,done:boolean} ; interface action {type:string,payload?:todobj} ;
 
-const todoReducer = (initialState:initialState = [todocraft('Estado génesis')],action:{type:string,payload?:initialState}) => {
-    if(!action.payload){return initialState}
+const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
+const todoReducer = (initialState:todobj[]|[] = [],action:action) => {
+    if(!action){return initialState}
     switch(action.type){
         default:break;
     }
 }
-const todocraft = (todo:string):todobj => {return {id:new Date().getTime(),todo,done:false}};
-const initialState:initialState|[] = [todocraft('Estado génesis')];
 
+const TodoList = ({todos = []}:any) => {
+    const [ todoses, setTodoses ] = useState<todobj[]|[]>(todos)
+    return(<><ul>{(todoses) && todoses.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)
+}
 
-const TodoItem = ({todos}:{todos:{id:number,todo:string,done:boolean}[]}):JSX.Element => {
+const TodoItem = ({id,todo,done}:todobj) => {
+    
+    const borrado = () => {
+        return
+    }
+    
+    return(<li className="litem" key={id}>{todo}<button className="btn btn-danger"></button></li>)
+}
 
+const TodoAdd = ({onNewTodo,todos}:any) => {
+
+    const [ivalue,setivalue] = useState('');
+    
     return(
         <>
-        <ul>{todos.map( ({id,todo}) => {return <li className="litem" key={id}>{todo} <button className="btn btn-danger"></button></li>})}</ul>
+            <form
+            onSubmit={(e) => {
+                e.preventDefault();
+                if(ivalue.trim().length<=2){return};
+                if(todos.map((x:string) => x.toUpperCase).includes(ivalue.trim().toUpperCase())){return};
+                onNewTodo(ivalue.trim());
+                setivalue('');
+            }}>
+                <input      className="form-control"
+                            type="text"
+                            value={ivalue}
+                            placeholder={'añadir todo'}
+                            onChange={({target}) => {setivalue(target.value)}}
+                />
+            </form>
         </>
     )
 }
 
 export const TodoApp = () => {
 
-    const [ todos , dispatchTodo ] = useReducer(todoReducer,iState);
+    const [ todos , dispatchTodo ] = useReducer(todoReducer,[todocraft('genesis')]);
+
+    console.log(todos);
 
     return (
         <>
         <h2>Todo app : {todos?.length} tareas pendientes</h2>
         <div className="container">
             <div className="row">
-                <div className="col">
-                    <TodoItem todos={todos}/>
-                </div>
-                <div className="col">
-                    {/*TodoAdd y onNewTodo*/}
-                    <input      type="text"
-                                className="form-control iform"
-                                placeholder="nueva tarea"
-                                name="newtodo"
-                    />
-                </div>
+                <div className="col"><TodoList todos={todos}/></div>
+                <div className="col"><TodoAdd onNewTodo={console.log} todos={todos} /></div>
             </div>
         </div>
         </>
