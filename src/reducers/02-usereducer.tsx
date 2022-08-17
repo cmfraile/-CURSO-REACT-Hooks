@@ -7,7 +7,7 @@ enum tiposacc{add = '[TODO] Add Todo'} ; interface todobj {id:number,todo:string
 
 const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
 
-const todoReducer = (state:todobj[]|[] = [],action?:action) => {
+const todoReducer = (state:todobj[]|[] = [],action:action) => {
     if(!action){return state}
     const { type , payload } = action;
     switch(type){
@@ -18,17 +18,23 @@ const todoReducer = (state:todobj[]|[] = [],action?:action) => {
 const TodoList = ({todos = []}:any) => {return(<><ul>{(todos) && todos.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)};
 const TodoItem = ({id,todo,done}:any) => {return(<li className="litem" key={id}>{todo}<button className="btn btn-danger" onClick={() => {console.log(id)}} ></button></li>)};
 
-const TodoAdd = ({onNewTodo,todos}:any) => {
+const TodoAdd = ({onNewTodo,todos}:{onNewTodo:any,todos:todobj[]}) => {
 
     const {todo,onInputChange,onResetForm} = useForma({todo:''});
+
+    const validarmiddle = (todo:string):boolean => {
+        const caso = todo.trim().toUpperCase();
+        if(todo.trim().length <= 2){return false};
+        if(todos.map(x => x.todo.toUpperCase()).includes(caso)){return false};
+        return true
+    }
     
     return(
         <>
             <form
             onSubmit={(e) => {
                 e.preventDefault();
-                if(todo.trim().length<=2){return};
-                if(todos.map((x:string) => x.toUpperCase).includes(todo.trim().toUpperCase())){return};
+                if(!validarmiddle(todo)){return}
                 onNewTodo(todocraft(todo.trim()));
                 onResetForm();
             }}>
@@ -49,13 +55,19 @@ export const TodoApp = () => {
 
     const [ todos , todosDispatch ] = useReducer(todoReducer,[]);
 
+    const handleNewTodo = (todo:todobj) => {
+        const { add } = tiposacc;
+        const action:action = {type:add,payload:todo};
+        todosDispatch(action);
+    }
+
     return (
         <>
         <h2>Todo app : {todos.length} tareas pendientes</h2>
         <div className="container">
             <div className="row">
                 <div className="col"><TodoList todos={todos}/></div>
-                <div className="col"><TodoAdd onNewTodo={console.log} todos={todos} /></div>
+                <div className="col"><TodoAdd onNewTodo={handleNewTodo} todos={todos} /></div>
             </div>
         </div>
         </>
