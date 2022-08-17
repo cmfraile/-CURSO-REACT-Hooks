@@ -6,22 +6,16 @@ import './todo.sass';
 interface todobj {id:number,todo:string,done:boolean} ; interface action {type:string,payload?:todobj} ;
 
 const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
-const todoReducer = (initialState:todobj[]|[] = [],action:action) => {
+
+console.log([todocraft('papu')]);
+const todoReducer = (initialState:todobj[]|[] = [],action?:action) => {
     if(!action){return initialState}
     switch(action.type){
-        default:break;
+        case '[TODO] Add Todo': return [...initialState,action.payload];
     }
 }
-
-const TodoList = ({todos = []}:any) => {
-    const [ todoses, setTodoses ] = useState<todobj[]|[]>(todos)
-    return(<><ul>{(todoses) && todoses.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)
-}
-
-const TodoItem = ({id,todo,done}:any) => {
-    
-    return(<li className="litem" key={id}>{todo}<button className="btn btn-danger" onClick={() => {console.log(id)}} ></button></li>)
-}
+const TodoList = ({todos = []}:any) => {return(<><ul>{(todos) && todos.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)};
+const TodoItem = ({id,todo,done}:any) => {return(<li className="litem" key={id}>{todo}<button className="btn btn-danger" onClick={() => {console.log(id)}} ></button></li>)};
 
 const TodoAdd = ({onNewTodo,todos}:any) => {
 
@@ -52,7 +46,7 @@ const TodoAdd = ({onNewTodo,todos}:any) => {
 
 export const TodoApp = () => {
 
-    const [ todos , dispatchTodo ] = useReducer(todoReducer,[todocraft('genesis')]);
+    const [ todos , dispatchTodo ] = useReducer(todoReducer,[]);
 
     console.log(todos);
 
