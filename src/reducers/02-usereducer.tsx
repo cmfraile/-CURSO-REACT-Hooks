@@ -1,17 +1,18 @@
-import { useReducer, useState } from "react"
+import { Reducer, useReducer, useState } from "react"
 import { random } from "underscore";
 import { useForma } from '../hooks/04-formwithcustomhook'
 import './todo.sass';
 
-interface todobj {id:number,todo:string,done:boolean} ; interface action {type:string,payload?:todobj} ;
+enum tiposacc{add = '[TODO] Add Todo'} ; interface todobj {id:number,todo:string,done:boolean} ; interface action {type:tiposacc,payload:todobj} ;
 
 const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
 
-console.log([todocraft('papu')]);
-const todoReducer = (initialState:todobj[]|[] = [],action?:action) => {
-    if(!action){return initialState}
-    switch(action.type){
-        case '[TODO] Add Todo': return [...initialState,action.payload];
+const todoReducer = (state:todobj[]|[] = [],action?:action) => {
+    if(!action){return state}
+    const { type , payload } = action;
+    switch(type){
+        case tiposacc.add : return [...state,payload];
+        default : throw new Error();
     }
 }
 const TodoList = ({todos = []}:any) => {return(<><ul>{(todos) && todos.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)};
@@ -46,13 +47,11 @@ const TodoAdd = ({onNewTodo,todos}:any) => {
 
 export const TodoApp = () => {
 
-    const [ todos , dispatchTodo ] = useReducer(todoReducer,[]);
-
-    console.log(todos);
+    const [ todos , todosDispatch ] = useReducer(todoReducer,[]);
 
     return (
         <>
-        <h2>Todo app : {todos?.length} tareas pendientes</h2>
+        <h2>Todo app : {todos.length} tareas pendientes</h2>
         <div className="container">
             <div className="row">
                 <div className="col"><TodoList todos={todos}/></div>
