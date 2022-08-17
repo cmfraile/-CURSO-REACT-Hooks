@@ -13,7 +13,7 @@ const Message = () => {
     return(<><h3>Usuario existe{JSON.stringify(xy)}</h3></>);
 }
 
-const useForma = (initialForm:any = {}) => {
+export const useForma = (initialForm:any = {}) => {
 
     /*
         const [formState,setFormState] = useState({username:'',email:'',password:''});
@@ -33,7 +33,7 @@ const useForma = (initialForm:any = {}) => {
 
     const onResetForm = () => { setFormState(initialForm) };
     
-    return({formState,onInputChange,onResetForm});
+    return({...formState,onInputChange,onResetForm});
 }
 
 export const Formwithcustomhook = () => {

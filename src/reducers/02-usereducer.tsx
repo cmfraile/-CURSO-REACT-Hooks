@@ -1,5 +1,6 @@
 import { useReducer, useState } from "react"
 import { random } from "underscore";
+import { useForma } from '../hooks/04-formwithcustomhook'
 import './todo.sass';
 
 interface todobj {id:number,todo:string,done:boolean} ; interface action {type:string,payload?:todobj} ;
@@ -24,27 +25,29 @@ const TodoItem = ({id,todo,done}:any) => {
 
 const TodoAdd = ({onNewTodo,todos}:any) => {
 
-    const [ivalue,setivalue] = useState('');
+    const {todo,onInputChange,onResetForm} = useForma({todo:''});
     
     return(
         <>
             <form
             onSubmit={(e) => {
                 e.preventDefault();
-                if(ivalue.trim().length<=2){return};
-                if(todos.map((x:string) => x.toUpperCase).includes(ivalue.trim().toUpperCase())){return};
-                onNewTodo(todocraft(ivalue.trim()));
-                setivalue('');
+                if(todo.trim().length<=2){return};
+                if(todos.map((x:string) => x.toUpperCase).includes(todo.trim().toUpperCase())){return};
+                onNewTodo(todocraft(todo.trim()));
+                onResetForm();
             }}>
                 <input      className="form-control"
                             type="text"
-                            value={ivalue}
+                            name="todo"
+                            value={todo}
                             placeholder={'añadir todo'}
-                            onChange={({target}) => {setivalue(target.value)}}
+                            onChange={onInputChange}
                 />
             </form>
         </>
     )
+
 }
 
 export const TodoApp = () => {
