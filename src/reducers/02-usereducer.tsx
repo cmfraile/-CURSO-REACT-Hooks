@@ -33,7 +33,7 @@ const TodoAdd = ({onNewTodo,todos}:any) => {
                 e.preventDefault();
                 if(ivalue.trim().length<=2){return};
                 if(todos.map((x:string) => x.toUpperCase).includes(ivalue.trim().toUpperCase())){return};
-                onNewTodo(ivalue.trim());
+                onNewTodo(todocraft(ivalue.trim()));
                 setivalue('');
             }}>
                 <input      className="form-control"
