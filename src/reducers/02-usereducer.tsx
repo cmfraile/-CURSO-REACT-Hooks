@@ -17,13 +17,9 @@ const TodoList = ({todos = []}:any) => {
     return(<><ul>{(todoses) && todoses.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)
 }
 
-const TodoItem = ({id,todo,done}:todobj) => {
+const TodoItem = ({id,todo,done}:any) => {
     
-    const borrado = () => {
-        return
-    }
-    
-    return(<li className="litem" key={id}>{todo}<button className="btn btn-danger"></button></li>)
+    return(<li className="litem" key={id}>{todo}<button className="btn btn-danger" onClick={() => {console.log(id)}} ></button></li>)
 }
 
 const TodoAdd = ({onNewTodo,todos}:any) => {
