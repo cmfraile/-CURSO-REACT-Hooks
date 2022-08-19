@@ -6,7 +6,6 @@ import './todo.sass';
 enum tiposacc{add = '[TODO] Add Todo'} ; interface todobj {id:number,todo:string,done:boolean} ; interface action {type:tiposacc,payload:todobj} ;
 
 const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
-
 const todoReducer = (state:todobj[]|[] = [],action:action) => {
     if(!action){return state}
     const { type , payload } = action;
@@ -15,9 +14,9 @@ const todoReducer = (state:todobj[]|[] = [],action:action) => {
         default : throw new Error();
     }
 }
+
 const TodoList = ({todos = []}:any) => {return(<><ul>{(todos) && todos.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)};
 const TodoItem = ({id,todo,done}:any) => {return(<li className="litem" key={id}>{todo}<button className="btn btn-danger" onClick={() => {console.log(id)}} ></button></li>)};
-
 const TodoAdd = ({onNewTodo,todos}:{onNewTodo:any,todos:todobj[]}) => {
 
     const {todo,onInputChange,onResetForm} = useForma({todo:''});
