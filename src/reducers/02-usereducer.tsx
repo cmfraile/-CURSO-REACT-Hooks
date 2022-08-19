@@ -3,22 +3,23 @@ import { any, random } from "underscore";
 import { useForma } from '../hooks/04-formwithcustomhook'
 import './todo.sass';
 
-enum tiposacc {add = '[TODO] Add Todo',del = '[TODO] Delete Todo'};
+enum tiposacc {add = '[TODO] Add Todo',nuke = '[TODO] Nuke Todo'};
 interface todobj {id:number,todo:string,done:boolean};interface action {type:tiposacc,payload:todobj} ;
 
 const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
 const todoReducer = (state:todobj[]|[] = [],action:action) => {
     if(!action){return state}
-    const { type , payload } = action;
+    const { type , payload } = action ; const { add , nuke } = tiposacc ;
     switch(type){
-        case tiposacc.add : return [...state,payload];
+        case add : return [...state,payload];
+        case nuke : return [];
         default : throw new Error();
     }
 }
 
 const TodoList = ({todos = []}:any) => {return(<><ul>{(todos) && todos.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)};
-const TodoItem = ({id,todo,done}:any) => {return(<li className="litem" key={id}>{todo}<button className="btn btn-danger" onClick={() => {console.log(id)}} ></button></li>)};
-const TodoAdd = ({onNewTodo,todos}:{onNewTodo:any,todos:todobj[]}) => {
+const TodoItem = ({id,todo,done}:any) => {return(<li className="litem" key={id}>{todo}<button className="btn btn-danger" onClick={() => {}} ></button></li>)};
+const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:any}) => {
 
     const {todo,onInputChange,onResetForm} = useForma({todo:''});
 
@@ -46,6 +47,7 @@ const TodoAdd = ({onNewTodo,todos}:{onNewTodo:any,todos:todobj[]}) => {
                             onChange={onInputChange}
                 />
             </form>
+            <button className="btn btn-danger" onClick={() => {if(confirm('esta seguro de mandar todo a la megamierda?')){onNuke()}}}>NUKE</button>
         </>
     )
 
@@ -65,13 +67,19 @@ export const TodoApp = () => {
         todosDispatch(action);
     }
 
+    const handlenuke = () => {
+        const { nuke } = tiposacc;
+        const action:action = {type:nuke,payload:todocraft('Se va todo a la mierda')};
+        todosDispatch(action);
+    }
+
     return (
         <>
         <h2>Todo app : {todos.length} tareas pendientes</h2>
         <div className="container">
             <div className="row">
-                <div className="col"><TodoList todos={todos}/></div>
-                <div className="col"><TodoAdd onNewTodo={handleNewTodo} todos={todos} /></div>
+                <div className="col"><TodoList todos={todos} /></div>
+                <div className="col"><TodoAdd onNewTodo={handleNewTodo} onNuke={handlenuke} todos={todos}/></div>
             </div>
         </div>
         </>
