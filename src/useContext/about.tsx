@@ -1,11 +1,9 @@
-const about = () => {
+export const about = () => {
 
     return(
         <>
-            <h1>Main</h1>
+            <h3>About</h3>
             <hr />
         </>
     )
 }
-
-export default about;

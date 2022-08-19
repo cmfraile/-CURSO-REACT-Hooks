@@ -49,7 +49,7 @@ export const App3 = () => {
     return(
         <>
         <h1>useContext</h1>
-        <div className="row"><div className="col"><context.mainC.default/></div></div>
+        <div className="row"><div className="col"><context.mainContext/></div></div>
         </>
         
     )
