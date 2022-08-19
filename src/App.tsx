@@ -1,5 +1,6 @@
 import * as hooks from '../src/hooks';
 import * as reducers from '../src/reducers'
+import * as context from '../src/useContext';
 
 export const App = () => {
     return(
@@ -38,7 +39,17 @@ export const App2 = () => {
         <>
         <h1>UseReducer</h1>
             {/*<div className="row"><div className="col"><reducers.Introreducer/></div></div>*/}
-            <div className="row"><div className="col"><reducers.TodoApp/></div></div>
+            {/*<div className="row"><div className="col"><reducers.TodoApp/></div></div>*/}
         </>
+    )
+}
+
+export const App3 = () => {
+    return(
+        <>
+        <h1>useContext</h1>
+        <div className="row"><div className="col"><context.mainC.default/></div></div>
+        </>
+        
     )
 }
