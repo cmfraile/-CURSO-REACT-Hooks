@@ -1,9 +1,10 @@
-import { Reducer, useReducer, useState } from "react"
-import { random } from "underscore";
+import { Reducer, useEffect, useReducer, useState } from "react"
+import { any, random } from "underscore";
 import { useForma } from '../hooks/04-formwithcustomhook'
 import './todo.sass';
 
-enum tiposacc{add = '[TODO] Add Todo'} ; interface todobj {id:number,todo:string,done:boolean} ; interface action {type:tiposacc,payload:todobj} ;
+enum tiposacc {add = '[TODO] Add Todo',del = '[TODO] Delete Todo'};
+interface todobj {id:number,todo:string,done:boolean};interface action {type:tiposacc,payload:todobj} ;
 
 const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
 const todoReducer = (state:todobj[]|[] = [],action:action) => {
@@ -52,7 +53,11 @@ const TodoAdd = ({onNewTodo,todos}:{onNewTodo:any,todos:todobj[]}) => {
 
 export const TodoApp = () => {
 
-    const [ todos , todosDispatch ] = useReducer(todoReducer,[]);
+    const [ todos , todosDispatch ] = useReducer(todoReducer,[],() => {
+        const parse:any = JSON.parse(localStorage.getItem('todos') || "");
+        if(parse == ""){return []}else{return parse};
+    });
+    useEffect(() => { localStorage.setItem('todos',JSON.stringify(todos)) },[todos]);
 
     const handleNewTodo = (todo:todobj) => {
         const { add } = tiposacc;
