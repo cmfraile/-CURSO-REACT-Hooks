@@ -15,7 +15,7 @@ export const login = () => {
                 onSubmit={(e) => {
                     e.preventDefault();
                     const valor = userbox.trim();
-                    (valor.length >= 2) && setUser(valor);
+                    (valor.length >= 2 && userbox !== valor) && setUser(valor);
                 }}>
             {Object.keys(formState).map((x:string) => {
                 return(
