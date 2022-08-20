@@ -33,7 +33,7 @@ export const useForma = (initialForm:any = {}) => {
 
     const onResetForm = () => { setFormState(initialForm) };
     
-    return({...formState,onInputChange,onResetForm});
+    return({...formState,formState,onInputChange,onResetForm});
 }
 
 export const Formwithcustomhook = () => {
