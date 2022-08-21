@@ -21,7 +21,7 @@ export const todocrudch = () => {
         const parse:any = JSON.parse(localStorage.getItem('todos') || "");
         if(parse == ""){return []}else{return parse};
     });
-    useEffect(() => { localStorage.setItem('todos',JSON.stringify(todos)) },[todos]);
+    useEffect(() => { localStorage.setItem('todos',JSON.stringify(todos))},[todos]);
     const todoCRUD = {
         addTODO:(todo:string) => {
             const action:action = {type:tiposacc.add,payload:todocraft(todo)};
@@ -35,6 +35,5 @@ export const todocrudch = () => {
             todosDispatch({type:tiposacc.del,payload:todocraft('nuke')})
         }
     }
-
     return({todos,todoCRUD,...todoCRUD});
 }

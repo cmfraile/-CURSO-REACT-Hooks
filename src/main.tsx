@@ -18,8 +18,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <App3 />
   </BrowserRouter>
   */
-
-  <TareaTODO/>
+ <React.StrictMode><TareaTODO/></React.StrictMode>
+  
   
   
   

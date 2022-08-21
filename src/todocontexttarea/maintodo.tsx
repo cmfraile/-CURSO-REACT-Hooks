@@ -1,14 +1,12 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useForma } from '../hooks/04-formwithcustomhook';
-import { todoContext , todoProvider as TDP } from './context/todoContext';
+import { todoContext } from './context/todoContext';
 import './todo.sass';
 
 interface todobj {id:number,todo:string,done:boolean};
 
 const TodoList = ({todos = []}:any) => {return(<><ul>{(todos) && todos.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)};
-const TodoItem = ({id,todo,done}:any) => {
-    return(<li className="litem" key={id}>{todo}<button className="btn btn-danger" onClick={() => {console.log('wea')}} ></button></li>)
-};
+const TodoItem = ({id,todo,done}:any) => {return(<><li className="litem" key={id}>{todo}</li></>)};
 const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:any}) => {
 
     const {todo,onInputChange,onResetForm} = useForma({todo:''});
@@ -45,19 +43,19 @@ const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:a
 
 export const TodoApp = () => {
 
-    const { todos , todoCRUD } = useContext(todoContext);
+    const { todos , addTODO , nukeTODO } = useContext(todoContext);
 
     return (
-        <TDP>
+        <>
         <h2>Todo app : {todos.length} tareas pendientes</h2>
         <div className="container">
             <div className="row">
                 <div className="col"><TodoList todos={todos} /></div>
-                <div className="col"><TodoAdd   onNewTodo={todoCRUD.addTODO}
-                                                onNuke={todoCRUD.nukeTODO}
+                <div className="col"><TodoAdd   onNewTodo={addTODO}
+                                                onNuke={nukeTODO}
                                                 todos={todos}/></div>
             </div>
         </div>
-        </TDP>
+        </>
     )
 }

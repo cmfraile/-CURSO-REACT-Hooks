@@ -1,6 +1,7 @@
 import * as hooks from '../src/hooks';
 import * as reducers from '../src/reducers'
-import { TodoApp } from '../src/reducers';
+import { TodoApp } from '../src/todocontexttarea/maintodo';
+import { todoProvider as TDP } from './todocontexttarea/context/todoContext';
 import * as context from '../src/useContext';
 
 
@@ -58,9 +59,9 @@ export const App3 = () => {
 
 export const TareaTODO = () => {
     return(
-        <>
+        <TDP>
         <h1>Tarea TODO</h1>
         <div className="row"><div className="col"><TodoApp/></div></div>
-        </>
+        </TDP>
     )
 }
