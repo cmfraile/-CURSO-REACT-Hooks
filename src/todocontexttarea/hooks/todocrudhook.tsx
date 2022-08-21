@@ -1,16 +1,17 @@
 import { useReducer ,useEffect } from "react";
 import { random } from "underscore";
 
-enum tiposacc {add = '[TODO] Add Todo',del = '[TODO] Del Todo',nuke = '[TODO] Nuke Todo'};
+enum tiposacc {add = '[TODO] Add Todo',del = '[TODO] Del Todo',nuke = '[TODO] Nuke Todo',end = '[TODO] end TODO'};
 interface todobj {id:number,todo:string,done:boolean};interface action {type:tiposacc,payload:todobj} ;
 
 const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
 const todoReducer = (state:todobj[]|[] = [],action:action) => {
     if(!action){return state}
-    const { type , payload } = action ; const { add , nuke , del } = tiposacc ;
+    const { type , payload } = action ; const { add , nuke , del , end } = tiposacc ;
     switch(type){
         case add : return [...state,payload];
-        case del : return state.filter(x => x.id !== payload.id) ;
+        case del : return state.filter(x => x.id !== payload.id);
+        case end : return state.map(x => {if(x.id == payload.id){x.done = true ; return x}else{return x}});
         case nuke : return [];
         default : throw new Error();
     }
@@ -31,8 +32,12 @@ export const todocrudch = () => {
             const action:action = {type:tiposacc.del,payload:todo};
             todosDispatch(action);
         },
+        endTODO:(todo:todobj) => {
+            const action:action = {type:tiposacc.end,payload:todo};
+            todosDispatch(action);
+        },
         nukeTODO:() => {
-            todosDispatch({type:tiposacc.del,payload:todocraft('nuke')})
+            todosDispatch({type:tiposacc.nuke,payload:todocraft('nuke')})
         }
     }
     return({todos,todoCRUD,...todoCRUD});

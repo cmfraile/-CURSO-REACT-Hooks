@@ -5,10 +5,22 @@ import './todo.sass';
 
 interface todobj {id:number,todo:string,done:boolean};
 
-const TodoList = ({todos = []}:any) => {return(<><ul>{(todos) && todos.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)};
+const TodoList = ({todos = []}:{todos:todobj[] | []}) => {
+    console.log('render de lista');
+    return(<><ul>{(todos) && todos
+        .sort((a,b) => {
+            const sorta = a.done ; const sortb = b.done;
+            if(sorta == sortb){return 0}
+            if(sorta){return 1} ; if(sortb){return -1}
+            return 0;
+        })
+        .map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)};
 const TodoItem = ({id,todo,done}:any) => {
-    const { delTODO } = useContext(todoContext);
-    return(<><li className="litem" key={id}>{todo} <button className='btn btn-danger' onClick={() => {console.log(todo)}} ></button></li></>)
+    const { delTODO , endTODO } = useContext(todoContext);
+    return(<><li className="litem" style={{textDecoration: (done) && 'line-through'}} key={id}>{todo}
+    <button className='btn btn-danger' onClick={() => {delTODO({id,todo,done})}}></button>
+    <button className='btn btn-primary' disabled={done} onClick={() => {endTODO({id,todo,done})}}></button>
+    </li></>)
 };
 const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:any}) => {
 
@@ -38,7 +50,7 @@ const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:a
                             onChange={onInputChange}
                 />
             </form>
-            <button className="btn btn-danger" onClick={() => {if(confirm('esta seguro de mandar todo a la megamierda?')){onNuke()}}}>NUKE</button>
+            <button className="btn btn-danger" disabled={(todos.length == 0) && true} onClick={() => {if(confirm('esta seguro de mandar todo a la megamierda?')){onNuke()}}}>NUKE</button>
         </>
     )
 
