@@ -1,7 +1,7 @@
-import { useReducer ,useEffect } from "react";
+import { useReducer ,useEffect, useState } from "react";
 import { random } from "underscore";
 
-enum tiposacc {add = '[TODO] Add Todo',del = '[TODO] Del Todo',nuke = '[TODO] Nuke Todo',end = '[TODO] end TODO'};
+enum tiposacc {add = '[TODO] Add Todo',del = '[TODO] Del Todo',nuke = '[TODO] Nuke Todo',end = '[TODO] end TODO',edit = '[TODO] edit TODO'};
 interface todobj {id:number,todo:string,done:boolean};interface action {type:tiposacc,payload:todobj} ;
 
 const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
@@ -22,6 +22,7 @@ export const todocrudch = () => {
         const parse:any = JSON.parse(localStorage.getItem('todos') || "");
         if(parse == ""){return []}else{return parse};
     });
+    const [ edit , setEdit ] = useState<todobj|undefined>();
     useEffect(() => { localStorage.setItem('todos',JSON.stringify(todos))},[todos]);
     const todoCRUD = {
         addTODO:(todo:string) => {
@@ -40,5 +41,5 @@ export const todocrudch = () => {
             todosDispatch({type:tiposacc.nuke,payload:todocraft('nuke')})
         }
     }
-    return({todos,todoCRUD,...todoCRUD});
+    return({todos,todoCRUD,...todoCRUD,edit,setEdit});
 }

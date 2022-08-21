@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useForma } from '../hooks/04-formwithcustomhook';
 import { todoContext } from './context/todoContext';
 import './todo.sass';
@@ -19,8 +19,12 @@ const TodoList = ({todos = []}:{todos:todobj[] | []}) => {
             return <TodoItem key={id} id={id} todo={todo} done={done} margin={marginbool()}/>})}</ul></>
         )};
 const TodoItem = ({id,todo,done,margin}:any) => {
+    const { setEdit } = useContext(todoContext);
     const { delTODO , endTODO } = useContext(todoContext);
-    return(<><li className={`litem ${(margin) ? 'margin' : ''}`} style={{textDecoration: (done) && 'line-through'}} key={id}>{todo}
+    return(<><li    className={`litem ${(margin) ? 'margin' : ''}`} 
+                    style={{textDecoration: (done) && 'line-through'}}
+                    onDoubleClick={() => {setEdit({id,todo,done})}} 
+                    key={id}>{todo}
     <button className='btn btn-danger' onClick={() => {delTODO({id,todo,done})}}></button>
     <button className='btn btn-primary' disabled={done} onClick={() => {endTODO({id,todo,done})}}></button>
     </li></>)
@@ -28,6 +32,9 @@ const TodoItem = ({id,todo,done,margin}:any) => {
 const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:any}) => {
 
     const {todo,onInputChange,onResetForm} = useForma({todo:''});
+    const { edit , setEdit } = useContext<{edit:todobj,setEdit:any}>(todoContext);
+
+    useEffect(() => {},[edit])
 
     const validarmiddle = (todo:string):boolean => {
         const caso = todo.trim().toUpperCase();
@@ -45,15 +52,17 @@ const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:a
                 onNewTodo(todo.trim());
                 onResetForm();
             }}>
-                <input      className="form-control"
-                            type="text"
-                            name="todo"
-                            value={todo}
-                            placeholder={'añadir todo'}
-                            onChange={onInputChange}
-                />
+            <input
+            className="form-control"
+            type="text"
+            name="todo"
+            value={todo}
+            placeholder={'añadir todo'}
+            onChange={onInputChange}
+            />
             </form>
-            <button className="btn btn-danger" disabled={(todos.length == 0) && true} onClick={() => {if(confirm('esta seguro de mandar todo a la megamierda?')){onNuke()}}}>NUKE</button>
+            <button className="btn btn-danger" disabled={(todos.length == 0) && true} onClick={() => {if(confirm('esta seguro de mandar todo a la megamierda?')){onNuke() ; setEdit(undefined)}}}>NUKE</button>
+            {(edit) && <code>{JSON.stringify(edit)}</code>}
         </>
     )
 
