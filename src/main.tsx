@@ -14,15 +14,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   
   <App2 />
 
+  <BrowserRouter><App3 /></BrowserRouter>
+
   <React.StrictMode><TareaTODO/></React.StrictMode>
   */
- 
 
- <BrowserRouter>
-    <App3 />
-  </BrowserRouter>
-  
-  
-  
+  <React.StrictMode><TareaTODO/></React.StrictMode>
   
 )
