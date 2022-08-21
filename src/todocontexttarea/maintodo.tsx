@@ -6,7 +6,10 @@ import './todo.sass';
 interface todobj {id:number,todo:string,done:boolean};
 
 const TodoList = ({todos = []}:any) => {return(<><ul>{(todos) && todos.map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)};
-const TodoItem = ({id,todo,done}:any) => {return(<><li className="litem" key={id}>{todo}</li></>)};
+const TodoItem = ({id,todo,done}:any) => {
+    const { delTODO } = useContext(todoContext);
+    return(<><li className="litem" key={id}>{todo} <button className='btn btn-danger' onClick={() => {console.log(todo)}} ></button></li></>)
+};
 const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:any}) => {
 
     const {todo,onInputChange,onResetForm} = useForma({todo:''});
