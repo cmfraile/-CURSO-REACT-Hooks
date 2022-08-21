@@ -7,10 +7,11 @@ interface todobj {id:number,todo:string,done:boolean};interface action {type:tip
 const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
 const todoReducer = (state:todobj[]|[] = [],action:action) => {
     if(!action){return state}
-    const { type , payload } = action ; const { add , nuke , del , end } = tiposacc ;
+    const { type , payload } = action ; const { add , nuke , del , end , edit } = tiposacc ;
     switch(type){
         case add : return [...state,payload];
         case del : return state.filter(x => x.id !== payload.id);
+        case edit : return new Array().concat(state.filter(x => x.id !== payload.id),payload) 
         case end : return state.map(x => {if(x.id == payload.id){x.done = true ; return x}else{return x}});
         case nuke : return [];
         default : throw new Error();
@@ -35,6 +36,10 @@ export const todocrudch = () => {
         },
         endTODO:(todo:todobj) => {
             const action:action = {type:tiposacc.end,payload:todo};
+            todosDispatch(action);
+        },
+        editTODO:(todo:todobj) => {
+            const action:action = {type:tiposacc.edit,payload:todo};
             todosDispatch(action);
         },
         nukeTODO:() => {

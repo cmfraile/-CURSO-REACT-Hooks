@@ -29,12 +29,10 @@ const TodoItem = ({id,todo,done,margin}:any) => {
     <button className='btn btn-primary' disabled={done} onClick={() => {endTODO({id,todo,done})}}></button>
     </li></>)
 };
-const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:any}) => {
+const TodoAdd = ({todos,onNewTodo,onEditTodo,onNuke}:{onNewTodo:any,onEditTodo:any,todos:todobj[],onNuke:any}) => {
 
     const {todo,onInputChange,onResetForm} = useForma({todo:''});
     const { edit , setEdit } = useContext<{edit:todobj,setEdit:any}>(todoContext);
-
-    useEffect(() => {},[edit])
 
     const validarmiddle = (todo:string):boolean => {
         const caso = todo.trim().toUpperCase();
@@ -42,6 +40,11 @@ const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:a
         if(todos.map(x => x.todo.toUpperCase()).includes(caso)){return false};
         return true
     }
+
+    useEffect(() => {
+        if(!edit){return}
+        onInputChange({target:{name:'todo',value:edit.todo}});
+    },[edit])
     
     return(
         <>
@@ -49,7 +52,8 @@ const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:a
             onSubmit={(e) => {
                 e.preventDefault();
                 if(!validarmiddle(todo)){return}
-                onNewTodo(todo.trim());
+                if(!edit){onNewTodo(todo.trim())}
+                if(edit){onEditTodo({id:edit.id,todo,done:edit.done}) ; setEdit(undefined)}
                 onResetForm();
             }}>
             <input
@@ -62,7 +66,7 @@ const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:a
             />
             </form>
             <button className="btn btn-danger" disabled={(todos.length == 0) && true} onClick={() => {if(confirm('esta seguro de mandar todo a la megamierda?')){onNuke() ; setEdit(undefined)}}}>NUKE</button>
-            {(edit) && <code>{JSON.stringify(edit)}</code>}
+            {(edit) && <code>{JSON.stringify(edit.todo)}</code>}
         </>
     )
 
@@ -70,7 +74,7 @@ const TodoAdd = ({todos,onNewTodo,onNuke}:{onNewTodo:any,todos:todobj[],onNuke:a
 
 export const TodoApp = () => {
 
-    const { todos , addTODO , nukeTODO } = useContext(todoContext);
+    const { todos , addTODO , nukeTODO , editTODO } = useContext(todoContext);
 
     return (
         <>
@@ -79,6 +83,7 @@ export const TodoApp = () => {
             <div className="row">
                 <div className="col"><TodoList todos={todos} /></div>
                 <div className="col"><TodoAdd   onNewTodo={addTODO}
+                                                onEditTodo={editTODO}
                                                 onNuke={nukeTODO}
                                                 todos={todos}/></div>
             </div>
