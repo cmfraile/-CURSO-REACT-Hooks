@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useForma } from '../hooks/04-formwithcustomhook';
 import { todoContext } from './context/todoContext';
 import './todo.sass';
@@ -14,10 +14,13 @@ const TodoList = ({todos = []}:{todos:todobj[] | []}) => {
             if(sorta){return 1} ; if(sortb){return -1}
             return 0;
         })
-        .map(({id,todo,done}:todobj) => {return <TodoItem key={id} id={id} todo={todo} done={done}/>})}</ul></>)};
-const TodoItem = ({id,todo,done}:any) => {
+        .map(({id,todo,done}:todobj,i:number) => {
+            const marginbool = ():boolean => {if(i == 0){return false} ; if(done && !todos[i-1].done){return true}else{return false}}
+            return <TodoItem key={id} id={id} todo={todo} done={done} margin={marginbool()}/>})}</ul></>
+        )};
+const TodoItem = ({id,todo,done,margin}:any) => {
     const { delTODO , endTODO } = useContext(todoContext);
-    return(<><li className="litem" style={{textDecoration: (done) && 'line-through'}} key={id}>{todo}
+    return(<><li className={`litem ${(margin) ? 'margin' : ''}`} style={{textDecoration: (done) && 'line-through'}} key={id}>{todo}
     <button className='btn btn-danger' onClick={() => {delTODO({id,todo,done})}}></button>
     <button className='btn btn-primary' disabled={done} onClick={() => {endTODO({id,todo,done})}}></button>
     </li></>)
