@@ -1,7 +1,7 @@
 import React from 'react';
 import { render , renderHook, screen, waitFor } from '@testing-library/react'
 import { multipleCustomHooks as MCH } from '../../src/hooks/05-examples'; 
-import { useFetch } from '../../src/hooks/05-examples' ; jest.mock('../../src/hooks/05-examples') ; 
+import { useFetch } from '../../src/hooks/05-examples';
 
 const main = () => {
 
@@ -21,7 +21,6 @@ const main = () => {
     });
 
     test('debe de mostrar un quote (a traves de un mock)',() => {
-        (useFetch as jest.Mock).mockReturnValue({data:[1,2],isLoading:false,error:null});
         render(<MCH/>);
         screen.debug();
     });
