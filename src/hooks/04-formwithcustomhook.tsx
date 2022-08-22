@@ -15,12 +15,6 @@ const Message = () => {
 
 export const useForma = (initialForm:any = {}) => {
 
-    /*
-        const [formState,setFormState] = useState({username:'',email:'',password:''});
-        const formgenerator:any = {username:formState.username,email:formState.email,password:formState.password};
-        const formgenerator:any = {username:formState.username,email:formState.email,password:formState.password};
-    */
-
     const [formState,setFormState] = useState(initialForm);
     
     const onInputChange = ({target}:any) => {
