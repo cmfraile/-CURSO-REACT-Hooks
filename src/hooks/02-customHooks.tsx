@@ -4,8 +4,8 @@ export const useCounter = (value:number = 0) => {
     const [ counter , setCounter ] = useState<number>(value);
     const sc = (arg:string):void => {
         switch(arg){
-            case '+': setCounter(counter+1);break;
-            case '-': setCounter(counter-1);break;
+            case '+': setCounter(c => c+1);break;
+            case '-': setCounter(c => c-1);break;
             case 'R': setCounter(value);break;
         }
     };
