@@ -25,4 +25,4 @@ const renderAPP = {
   },
 }
 
-renderAPP.app2();
+renderAPP.app1();

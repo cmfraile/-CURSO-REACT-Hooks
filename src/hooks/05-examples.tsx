@@ -18,7 +18,7 @@ export const multipleCustomHooks = () => {
 
     const { data , isLoading , error } = useFetch('https://www.breakingbadapi.com/api/quotes');
     const { counter , sc } = useCounter();
-    const { height , setHeight } = useLayoutEffectHook()
+    const { height , setHeight } = useLayoutEffectHook();
 
     const iref = useRef<HTMLParagraphElement>((<p/>).type);
     useLayoutEffect(() => {setHeight(iref.current.getBoundingClientRect().height)});
