@@ -6,19 +6,23 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import { BrowserRouter } from "react-router-dom";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  /*
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-  
-  <App2 />
+const renderAPP = {
+  app1:() => {ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+    <React.StrictMode><App/></React.StrictMode>
+    )
+  },
+  app2:() => {ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+    <React.StrictMode><App2/></React.StrictMode>
+    )
+  },
+  app3:() => {ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+    <BrowserRouter><React.StrictMode><App3/></React.StrictMode></BrowserRouter>
+    )
+  },
+  app4:() => {ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+    <React.StrictMode><TareaTODO/></React.StrictMode>
+    )
+  },
+}
 
-  <BrowserRouter><App3 /></BrowserRouter>
-
-  <React.StrictMode><TareaTODO/></React.StrictMode>
-  */
-
-  <React.StrictMode><TareaTODO/></React.StrictMode>
-  
-)
+renderAPP.app2();
