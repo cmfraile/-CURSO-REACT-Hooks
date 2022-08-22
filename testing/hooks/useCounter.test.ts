@@ -23,10 +23,10 @@ const main = () => {
         */
 
         const rHOOK = renderHook(() => useCounter());
-        const { counter , sc } = rHOOK.result.current;
+        const { sc } = rHOOK.result.current;
 
         act(() => {sc('+');sc('+');sc('+')});
-        
+
         expect(rHOOK.result.current.counter).toBe(3)
 
     });
