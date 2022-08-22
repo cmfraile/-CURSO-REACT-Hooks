@@ -2,8 +2,9 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useCounter } from "./02-customHooks";
 import { useLayoutEffectHook } from "./07-useLayoutEffect";
 
-const useFetch = (url:string) => {
-    const [ state , setState ] = useState({data:null,isLoading:true,error:null})
+export const useFetch = (url:string) => {
+    interface datafetch {data:null|any[],isLoading:boolean,error:any};
+    const [ state , setState ] = useState<datafetch>({data:null,isLoading:true,error:null})
     const getFetch = async() => {
         setState({...state,isLoading:true});
         await(await fetch(url)).json()
