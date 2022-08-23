@@ -1,11 +1,11 @@
 import { useReducer ,useEffect, useState } from "react";
 import { random } from "underscore";
 
-enum tiposacc {add = '[TODO] Add Todo',del = '[TODO] Del Todo',nuke = '[TODO] Nuke Todo',end = '[TODO] end TODO',edit = '[TODO] edit TODO'};
-interface todobj {id:number,todo:string,done:boolean};interface action {type:tiposacc,payload:todobj} ;
+export enum tiposacc {add = '[TODO] Add Todo',del = '[TODO] Del Todo',nuke = '[TODO] Nuke Todo',end = '[TODO] end TODO',edit = '[TODO] edit TODO'};
+export interface todobj {id:number,todo:string,done:boolean};export interface action {type:tiposacc,payload:todobj} ;
 
-const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
-const todoReducer = (state:todobj[]|[] = [],action:action) => {
+export const todocraft = (todo:string):todobj => {return {id:(new Date().getTime() + random(0,10000)),todo,done:false}};
+export const todoReducer = (state:todobj[]|[] = [],action:action) => {
     if(!action){return state}
     const { type , payload } = action ; const { add , nuke , del , end , edit } = tiposacc ;
     switch(type){
