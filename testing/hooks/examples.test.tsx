@@ -26,7 +26,8 @@ const main = () => {
         render(<MCH/>)
         const rHOOK = renderHook(() => useFetch(url));
         await waitFor(() => expect(rHOOK.result.current.data?.length).toBeGreaterThan(0),{timeout:3000});
-        screen.debug();
+        expect(screen.getByLabelText('quote').innerHTML).toBeTruthy();
+        console.log(screen.getByLabelText('quote').innerHTML);
     });
 
 };
