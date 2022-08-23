@@ -1,9 +1,12 @@
 import React from 'react';
-import { render , renderHook, screen, waitFor } from '@testing-library/react'
-import { multipleCustomHooks as MCH } from '../../src/hooks/05-examples'; 
+import { fireEvent, render , renderHook, screen, waitFor } from '@testing-library/react'
+import { multipleCustomHooks as MCH, multipleCustomHooks } from '../../src/hooks/05-examples'; 
 import { useFetch } from '../../src/hooks/05-examples';
+import { useCounter } from '../../src/hooks/02-customHooks';
 
 const main = () => {
+
+    const url:string = 'https://www.breakingbadapi.com/api/quotes';
 
     test('debe de mostrar el componente por defecto',() => {
         render(<MCH/>);
@@ -14,14 +17,15 @@ const main = () => {
     });
 
     test('vamos a probar el fetch para recordar como se hacia',async() => {
-        const url:string = 'https://www.breakingbadapi.com/api/quotes';
         const rHOOK = renderHook(() => useFetch(url));
         await waitFor(() => expect(rHOOK.result.current.data?.length).toBeGreaterThan(0),{timeout:3000});
         expect(rHOOK.result.current.isLoading).toBeFalsy();
     });
 
-    test('debe de mostrar un quote (a traves de un mock)',() => {
-        render(<MCH/>);
+    test('mostrar un quote sin mock',async() => {
+        render(<MCH/>)
+        const rHOOK = renderHook(() => useFetch(url));
+        await waitFor(() => expect(rHOOK.result.current.data?.length).toBeGreaterThan(0),{timeout:3000});
         screen.debug();
     });
 

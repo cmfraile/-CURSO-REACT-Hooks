@@ -29,7 +29,7 @@ export const multipleCustomHooks = () => {
     return(
         <>
         <h1 style={{color:(error) ? 'red' : 'black'}} >{(error) ? 'ERROR!' : (isLoading) ? 'Cargando' : 'Breaking Bad Quotes'}</h1>
-        <p ref={iref}>{(data) && data[counter]['quote']}</p>
+        <p ref={iref} aria-label="quote">{(data) && data[counter]['quote']}</p>
         <p>Altura del quote : {height}</p>
         <button className="btn btn-primary" onClick={() => {sc('+')}}>+1</button>
         <button className="btn btn-primary" disabled={(counter == 0) ? true : false} onClick={() => {sc('-')}}>-1</button>
