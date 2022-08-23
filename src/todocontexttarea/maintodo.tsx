@@ -18,7 +18,7 @@ const TodoList = ({todos = []}:{todos:todobj[] | []}) => {
             const marginbool = ():boolean => {if(i == 0){return false} ; if(done && !todos[i-1].done){return true}else{return false}}
             return <TodoItem key={id} id={id} todo={todo} done={done} margin={marginbool()}/>})}</ul></>
         )};
-const TodoItem = ({id,todo,done,margin}:any) => {
+export const TodoItem = ({id,todo,done,margin}:any) => {
     const { setEdit } = useContext(todoContext);
     const { delTODO , endTODO } = useContext(todoContext);
     return(<><li    className={`litem ${(margin) ? 'margin' : ''}`} 

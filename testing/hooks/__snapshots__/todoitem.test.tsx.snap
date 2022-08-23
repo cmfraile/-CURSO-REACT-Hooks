@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pruebas en el todoitem snapshot de componente 1`] = `
+<div>
+  <li
+    class="litem "
+  >
+    tododeprueba
+    <button
+      class="btn btn-danger"
+    />
+    <button
+      class="btn btn-primary"
+    />
+  </li>
+</div>
+`;
