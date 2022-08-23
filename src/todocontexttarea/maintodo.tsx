@@ -31,7 +31,7 @@ export const TodoItem = ({id,todo,done,margin}:any) => {
 };
 const TodoAdd = ({todos,onNewTodo,onEditTodo,onNuke}:{onNewTodo:any,onEditTodo:any,todos:todobj[],onNuke:any}) => {
 
-    const {todo,onInputChange,onResetForm} = useForma({todo:''});
+    const { todo , onInputChange , onResetForm } = useForma({todo:''});
     const { edit , setEdit } = useContext<{edit:todobj,setEdit:any}>(todoContext);
 
     const validarmiddle = (todo:string):boolean => {
