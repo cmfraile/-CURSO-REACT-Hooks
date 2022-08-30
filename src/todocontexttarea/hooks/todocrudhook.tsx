@@ -20,8 +20,8 @@ export const todoReducer = (state:todobj[]|[] = [],action:action) => {
 
 export const todocrudch = () => {
     const [ todos , todosDispatch ] = useReducer(todoReducer,[],() => {
-        const parse:any = JSON.parse(localStorage.getItem('todos') || "");
-        if(parse == ""){return []}else{return parse};
+        const caso = localStorage.getItem('todos');
+        if(caso){return JSON.parse(caso)}else{return {logged:false}}
     });
     const [ edit , setEdit ] = useState<todobj|undefined>();
     useEffect(() => { localStorage.setItem('todos',JSON.stringify(todos))},[todos]);
